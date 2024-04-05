@@ -115,28 +115,24 @@ declareParameters returns [List<Expr> arguements]:
 assignment returns [Expr expr]:
         WORD EQUAL expression { $expr = new Assign($WORD.text, $expression.value); }
         |
-        { Expr val; }
-        name=WORD'[' expression '] = ' (WORDQUOTE { val = new StringLiteral(removeQuotes($WORDQUOTE.text)); }| 
-                                         NUMBER { val = new IntLiteral($NUMBER.text); })
-        { $expr = new ReassignList($expression, $name.text, val); }
+        name=WORD'[' ind=expression '] = ' val=expression
+        { $expr = new ReassignList($ind.value, $name.text, $val.value); }
         |
-        { Expr val; 
-          String front = ""; }
-        name=WORD '.add(' (WORDQUOTE { val = new StringLiteral(removeQuotes($WORDQUOTE.text)); } | 
-                           NUMBER { val = new IntLiteral($NUMBER.text); } )
-                          ', ' (index=NUMBER | 
+        { String front = ""; }
+        name=WORD '.add(' val=expression
+                          ', ' (index=expression | 
                                 toggle='front'{ front = $toggle.text; } | 
                                 toggle='back' { front = $toggle.text; })
                           ')'
         { 
             if(front == ""){
-                $expr = new ListAddAt(toInt($index.text), $name.text, val);
+                $expr = new ListAddAt($index.value, $name.text, $val.value);
             }
             else if (front.equals("front")){
-                $expr = new ListAddFrontBack(TRUEBOOLEAN, $name.text, val);
+                $expr = new ListAddFrontBack(TRUEBOOLEAN, $name.text, $val.value);
             }
             else{
-                $expr = new ListAddFrontBack(FALSEBOOLEAN, $name.text, val);
+                $expr = new ListAddFrontBack(FALSEBOOLEAN, $name.text, $val.value);
             }
         }
         ;

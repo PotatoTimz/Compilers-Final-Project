@@ -92,22 +92,24 @@ class Assign(
 }
 
 class ListAddAt(
-    val index: Int,
+    val index: Expr,
     val name: String,
     val expr: Expr
 ): Expr() {
     override fun eval(runtime:Runtime):Data {
         val v = runtime.symbols[name]
-        
+        val i = index.eval(runtime).toString().toInt()
+        val new_v = expr.eval(runtime)
+
         if(v is ListIntData){
             var list = v.toString().drop(1).dropLast(1).split(", ").map { it.toInt() }.toMutableList()
-            list.add(index, expr.eval(Runtime()).toString().toInt())
+            list.add(i, new_v.toString().toInt())
             runtime.symbols.put(name, ListIntData(list))
             return None
         }
         else if(v is ListStringData){
             var list = v.toString().drop(1).dropLast(1).split(", ").map { it.toString() }.toMutableList()
-            list.add(index, expr.eval(Runtime()).toString())
+            list.add(i, new_v.toString())
             runtime.symbols.put(name, ListStringData(list))
             return None
         }
@@ -126,10 +128,11 @@ class ReassignList(
     override fun eval(runtime:Runtime):Data {
         val v = runtime.symbols[name]
         val i = index.eval(runtime).toString().toInt()
+        val new_v = expr.eval(runtime)
         
         if(v is ListIntData){
             var list = v.toString().drop(1).dropLast(1).split(", ").map { it.toInt() }.toMutableList()
-            list[i] = expr.eval(Runtime()).toString().toInt()
+            list[i] = new_v.toString().toInt()
             runtime.symbols.put(name, ListIntData(list))
             return None
         }
@@ -153,14 +156,15 @@ class ListAddFrontBack(
 ): Expr() {
     override fun eval(runtime:Runtime):Data {
         val v = runtime.symbols[name]
-        
+        val new_v = expr.eval(runtime)
+
         if(v is ListIntData){
             var list = v.toString().drop(1).dropLast(1).split(", ").map { it.toInt() }.toMutableList()
             if(front){
-                list.add(0, expr.eval(Runtime()).toString().toInt())
+                list.add(0, new_v.toString().toInt())
             }
             else{
-                list.add(list.size, expr.eval(Runtime()).toString().toInt())
+                list.add(list.size, new_v.toString().toInt())
             }
             runtime.symbols.put(name, ListIntData(list))
             return None
@@ -168,10 +172,10 @@ class ListAddFrontBack(
         else if(v is ListStringData){
             var list = v.toString().drop(1).dropLast(1).split(", ").map { it.toString() }.toMutableList()
             if(front){
-                list.add(0, expr.eval(Runtime()).toString())
+                list.add(0, new_v.toString())
             }
             else{
-                list.add(list.size, expr.eval(Runtime()).toString())
+                list.add(list.size, new_v.toString())
             }
             runtime.symbols.put(name, ListStringData(list))
             return None
