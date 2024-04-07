@@ -1,5 +1,34 @@
 # Compilers-Final-Project
 
+# Backend
+
+This is a modification to assignment 3. Featuring the inclusion of **Lists** and aggregate functions that can be applied to the list.
+
+## Data Types Added
+
+* ListIntData
+* ListStringData
+
+Data types that store either a list of strings or a list of numbers. Note that both lists must contain values of a specific type (ie ListIntData must contain only integers)
+
+### List Creation Expressions
+* **ListStringLiteral**(lexeme: List\<String>)
+* **ListIntLiteral**(lexeme: List\<String>)
+
+### List Creation Expressions
+* **ListStringLiteral**(lexeme: List\<String>)
+* **ListIntLiteral**(lexeme: List\<String>)
+
+### List Aggregation Expressions
+* MaxList(list: Expr): Gets the largest number from a list of integers
+* MinList(list: Expr): Gets the smallest number from a list of integers
+* AverageList(list : Expr): Gets the average value from a list of integers
+* SumList(list: Expr): Gets the sum from a list of integers
+* CountList(list: expr): Gets the size from a list
+* MapList(funcname: String, name: String, arguements: List\<Expr>): Applies a function to each item within a list. The function will run through each item using the itterated item as the last parameter of the function. The other parameters in the function must also be declared.
+
+# Frontend
+
 ## Data Types Supported / Declarable Values
 
 Integer type\
@@ -11,11 +40,11 @@ Functions type
 ## Variable Decleration
 
 Done through defining the (1) **Variable_Name**, (2) **Variable_Value** (3) and spacing it out with " = "\
-Lists can be declared the same way by using square bracket
+Lists can be declared the same way by using a square bracket
 
 &nbsp; *Variable_name* = **Variable_Value**
 
-**Note**: Spacing for the some of the functions are sensitive
+**Note**: Spacing for some of the functions are sensitive
 
 ## Lists
 
@@ -23,7 +52,7 @@ Like other programming languages specific values stored inside of a list can be 
 
 ### Editing an Existing List
 
-You can update an already declared list
+You can update an already-declared list
 
 &nbsp; *array_name*[**index_number**] = new_value
 
@@ -98,7 +127,7 @@ Given a boolean statement perform one block or another
 &nbsp; "==" -> Equal\
 &nbsp; ">" -> Greater than
 
-To declare an ifelse statement you must provide a (1) **comparitive statement**, (2) **if_body** and (3) **else_body**. Depending on the boolean value returned by the comparitive statement the if or the else body will be outputed
+To declare an ifelse statement you must provide a (1) **comparative statement**, (2) **if_body**, and (3) **else_body**. Depending on the boolean value returned by the comparative statement the if or the else body will be outputted
 
 &nbsp; if(**comparitive_statement**) {\
 &nbsp;&nbsp;&nbsp; if_body   
@@ -109,8 +138,8 @@ To declare an ifelse statement you must provide a (1) **comparitive statement**,
 
 ## For Loops
 
-Will loop the body of code given a specified amount of time based on the range given.
-The current itteration of the code will be stored within an integer variable and can be accessed within the body of code.\
+Will loop the body of code given a specified amount of time-based on the range given.
+The current iteration of the code will be stored within an integer variable and can be accessed within the body of code.\
 To create a for loop you will need to declare a (1) **Itteration Name**, (2) **Loop Start Number**, (3) **Loop End Number**, (4) **Body of Code**
 
 &nbsp; for(*Itteration_Name* in *Loop_Start_Number*..*Loop_End_Number*){\
@@ -119,15 +148,15 @@ To create a for loop you will need to declare a (1) **Itteration Name**, (2) **L
 
 ## For Loops
 
-Will loop the body of code given a specified amount of time based on the range given.
-The current itteration of the code will be stored within an integer variable and can be accessed within the body of code.\
+Will loop the body of code given a specified amount of time-based on the range given.
+The current iteration of the code will be stored within an integer variable and can be accessed within the body of code.\
 To create a for loop you will need to declare a (1) **Itteration Name**, (2) **Loop Start Number**, (3) **Loop End Number**, (4) **Body of Code**
 
 &nbsp; for(*Itteration_Name* in *Loop_Start_Number*..*Loop_End_Number*){\
 &nbsp;&nbsp;&nbsp; **Body_Of_Code**\
 &nbsp; }
 
-#### Aggeregate Function
+#### Aggregate Function
 
 **Map**: Given a list and a function (with parameters if needed) apply the function to each of the values in the list. The return type of the function must match the type of the list given.
 
